@@ -2,48 +2,36 @@
 
 # install packages
 yum -y install ansible python3 git expect
-yum -y update
 
+# encrypted_password
+encrypted_password="11111111"
 
-# auto ssh_keygen rsa
+# create SSH key
 ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
 
-/usr/bin/expect <<EOE
-set prompt "#"
-spawn bash -c "ssh-copy-id root@master"
-expect {
-  "yes/no" { send "yes\r"; exp_continue }
-  "password" { send "11111111\r"; exp_continue }
-  $prompt
-}
+# host list
+hosts=("master" "node1" "node2" "node3")
 
-spawn bash -c "ssh-copy-id root@node1"
-expect {
-  "yes/no" { send "yes\r"; exp_continue }
-  "password" { send "11111111\r"; exp_continue }
-  $prompt
-}
+# copy SSH key
+for host in "${hosts[@]}"; do
 
-spawn bash -c "ssh-copy-id root@node2"
-expect {
-  "yes/no" { send "yes\r"; exp_continue }
-  "password" { send "11111111\r"; exp_continue }
-  $prompt
-}
+  /usr/bin/expect <<EOF
+  set prompt "#"
+  spawn bash -c "ssh-copy-id root@$host"
+  expect {
+    "yes/no" { send "yes\r"; exp_continue }
+    "password" { send "$encrypted_password\r"; exp_continue }
+    $prompt
+  }
+EOF
 
-spawn bash -c "ssh-copy-id root@node3"
-expect {
-  "yes/no" { send "yes\r"; exp_continue }
-  "password" { send "11111111\r"; exp_continue }
-  $prompt
-}
-EOE
+done
 
 # git clone
 git clone https://github.com/kubernetes-sigs/kubespray.git
 
 
-# set and install requirements.txt
+# config requirements.txt
 cd ~/kubespray
 
 cat << EOF > ~/kubespray/requirements.txt
@@ -94,10 +82,12 @@ kube_node
 calico_rr
 EOF
 
-#start ansible
+#start ansible-playbook
 cd ~/kubespray
 ansible-playbook  -i ./inventory/first_cluster/inventory.ini cluster.yml
 
+
+# config alias autocomplete
 echo 'source <(kubectl completion bash)' >>~/.bashrc
 echo 'alias k=kubectl' >>~/.bashrc 
 echo 'complete -F __start_kubectl k' >>~/.bashrc
