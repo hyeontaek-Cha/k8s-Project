@@ -1,31 +1,9 @@
 #! /bin/bash
 
 # install packages
-yum -y install ansible python3 git expect
+yum -y install ansible python3 
 
-# encrypted_password
-encrypted_password="11111111"
-
-# create SSH key
-ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
-
-# host list
-hosts=("master" "node1" "node2" "node3")
-
-# copy SSH key
-for host in "${hosts[@]}"; do
-
-  /usr/bin/expect <<EOF
-  set prompt "#"
-  spawn bash -c "ssh-copy-id root@$host"
-  expect {
-    "yes/no" { send "yes\r"; exp_continue }
-    "password" { send "$encrypted_password\r"; exp_continue }
-    $prompt
-  }
-EOF
-
-done
+cd ~/
 
 # git clone
 git clone https://github.com/kubernetes-sigs/kubespray.git
@@ -46,6 +24,7 @@ pbr==5.11.1
 ruamel.yaml==0.17.21
 ruamel.yaml.clib==0.2.7
 EOF
+
 # pip install error
 sudo -H pip3 install --upgrade --ignore-installed pip setuptools
 

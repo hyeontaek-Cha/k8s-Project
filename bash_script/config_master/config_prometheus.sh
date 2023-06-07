@@ -1,8 +1,12 @@
 #! /bin/bash
 
+cd ~/
+
 # install metric server
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.6.3/components.yaml
 
+
+#config ymal
 CURRENT_YAML=$(kubectl get deployment.apps/metrics-server -n kube-system -o yaml)
 
 NEW_YAML=$(echo "$CURRENT_YAML" | sed '/- --secure-port=4443/a\        - --kubelet-insecure-tls')
@@ -25,12 +29,12 @@ sleep 20s
 # create namespace
 kubectl create namespace monitoring
 
-cd ~
+cd ~/
 
 #install prometheus
 git clone https://github.com/hali-linux/my-prometheus-grafana.git
 
-cd my-prometheus-grafana
+cd ~/my-prometheus-grafana
 
 
 # replace prometheus-cluster-role.yaml

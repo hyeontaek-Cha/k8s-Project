@@ -1,5 +1,7 @@
 #! /bin/bash
 
+# 서버 공통 구성
+
 # selinux disable
 setenforce 0
 sed -i 's/^SELINUX=enforcing$/SELINUX=disabled/' /etc/selinux/config
@@ -24,7 +26,7 @@ net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 EOF
 
-# set hosts
+# config hosts
 cat <<EOF>> /etc/hosts
 192.168.1.151 master
 192.168.1.152 node1
@@ -33,5 +35,5 @@ cat <<EOF>> /etc/hosts
 EOF
 
 # yum install
-yum -y install epel-release
+yum -y install epel-release 
 yum -y update
