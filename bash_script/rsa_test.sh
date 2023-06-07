@@ -23,3 +23,5 @@ for host in "${hosts[@]}"; do
 EOF
 
 done
+
+!chmod 755 %
