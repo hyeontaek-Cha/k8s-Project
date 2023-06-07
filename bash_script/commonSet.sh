@@ -1,4 +1,5 @@
 #! /bin/bash
+# -*- coding: utf-8 -*-
 
 # 서버 공통 구성
 

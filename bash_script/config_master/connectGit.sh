@@ -1,12 +1,11 @@
 #! /bin/bash
+# -*- coding: utf-8 -*-
 
 cd ~/
 
 git clone https://github.com/hyeontaek-Cha/k8s-Project.git
 
 cd ~/k8s-Project/bash_script/
-
-chmod 755 bash_script/*
 
 # encrypted_password
 encrypted_password="11111111"

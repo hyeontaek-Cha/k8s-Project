@@ -1,4 +1,5 @@
 #! /bin/bash
+# -*- coding: utf-8 -*-
 
 yum -y install epel-release 
 yum -y update 

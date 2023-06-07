@@ -1,4 +1,5 @@
 #! /bin/bash
+# -*- coding: utf-8 -*-
 
 # install packages
 yum -y install ansible python3 
