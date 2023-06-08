@@ -7,7 +7,10 @@
 # install packages
 yum -y install ansible python3 
 
-cd /var/lib/jenkins
+# config ~home dir
+$HOME=/var/lib/jenkins
+
+cd ~
 
 # git clone
 git clone --single-branch --branch v2.19.1 https://github.com/kubernetes-sigs/kubespray.git
@@ -65,12 +68,16 @@ kube_node
 calico_rr
 EOF
 
-# start ansible-playbook
-cd /var/lib/jenkins/kubespray
+
+cd ~/kubespray
+
+# update kube_version
+sed -i 's/kube_version: .*/kube_version: v1.26.5/g' /var/lib/jenkins/kubespray/inventory/first_cluster/group_vars/k8s_cluster/k8s-cluster.yml
 
 # ping check
 ansible all -i inventory/first_cluster/inventory.ini -m ping
 
+# start ansible-playbook
 ansible-playbook  -i ./inventory/first_cluster/inventory.ini cluster.yml
 
 
