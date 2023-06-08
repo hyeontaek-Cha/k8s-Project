@@ -9,13 +9,9 @@ cd ~/
 # git clone
 git clone https://github.com/kubernetes-sigs/kubespray.git
 
-mkdir ~/k8s-Project
-# config sysbolic link
-ln -s /var/lib/jenkins/kubespray k8s-Project/
-
 
 # config requirements.txt
-cd ~/k8s-Project/kubespray
+cd ~/kubespray
 
 cat << EOF > ~/kubespray/requirements.txt
 ansible==4.10.0
@@ -67,7 +63,7 @@ calico_rr
 EOF
 
 #start ansible-playbook
-cd ~/k8s-Project/kubespray
+cd ~/kubespray
 ansible-playbook  -i ./inventory/first_cluster/inventory.ini cluster.yml
 
 
