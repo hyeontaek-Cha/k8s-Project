@@ -53,5 +53,13 @@ systemctl daemon-reload
 
 systemctl enable jenkins && systemctl start jenkins
 
+# install gradle
+wget https://services.gradle.org/distributions/gradle-8.1.1-bin.zip
+
+mkdir /opt/gradle
+
+unzip -d /opt/gradle gradle-8.1.1-bin.zip
+
+cd /opt/gradle/gradle-8.1.1
 # check jenkins key
 cat /var/lib/jenkins/secrets/initialAdminPassword
