@@ -7,26 +7,26 @@
 # install packages
 yum -y install ansible python3 
 
-cd ~/
+cd /var/lib/jenkins
 
 # git clone
-git clone https://github.com/kubernetes-sigs/kubespray.git
+git clone --single-branch --branch v2.19.1 https://github.com/kubernetes-sigs/kubespray.git
 
 
 # config requirements.txt
-cd ~/kubespray
+cd ./kubespray
 
 cat << EOF > ~/kubespray/requirements.txt
-ansible==4.10.0
-ansible-core==2.13.0
+ansible==5.7.1
+ansible-core==2.12.5
 cryptography==3.4.8
-jinja2==3.0.0
-jmespath==0.10.0
-MarkupSafe==2.0.1
-netaddr==0.8.0
-pbr==5.11.1
-ruamel.yaml==0.17.21
-ruamel.yaml.clib==0.2.7
+jinja2==2.11.3
+netaddr==0.7.19
+pbr==5.4.4
+jmespath==0.9.5
+ruamel.yaml==0.16.10
+ruamel.yaml.clib==0.2.6
+MarkupSafe==1.1.1
 EOF
 
 # pip install error
@@ -65,8 +65,12 @@ kube_node
 calico_rr
 EOF
 
-#start ansible-playbook
+# start ansible-playbook
 cd /var/lib/jenkins/kubespray
+
+# ping check
+ansible all -i inventory/first_cluster/inventory.ini -m ping
+
 ansible-playbook  -i ./inventory/first_cluster/inventory.ini cluster.yml
 
 
