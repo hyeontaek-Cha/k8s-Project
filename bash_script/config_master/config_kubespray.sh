@@ -18,7 +18,7 @@ cd ~/kubespray
 
 cat << EOF > ~/kubespray/requirements.txt
 ansible==4.10.0
-ansible-core==2.11.10
+ansible-core==2.13.0
 cryptography==3.4.8
 jinja2==3.0.0
 jmespath==0.10.0
@@ -66,7 +66,7 @@ calico_rr
 EOF
 
 #start ansible-playbook
-cd ~/kubespray
+cd /var/lib/jenkins/kubespray
 ansible-playbook  -i ./inventory/first_cluster/inventory.ini cluster.yml
 
 
