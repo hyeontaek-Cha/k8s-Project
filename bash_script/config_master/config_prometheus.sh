@@ -1,6 +1,8 @@
 #! /bin/bash
 # -*- coding: utf-8 -*-
 
+# config ~home dir
+$HOME=/var/lib/jenkins
 cd ~/
 
 # install metric server
