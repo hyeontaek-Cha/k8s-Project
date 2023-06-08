@@ -2,15 +2,15 @@
 # -*- coding: utf-8 -*-
 
 # Add the jenkins line using sed
-sudo sed -i '/^root\s*ALL=(ALL)\s*ALL/a jenkins\tALL=(ALL) NOPASSWD: ALL' /etc/sudoers
+sed -i '/^root\s*ALL=(ALL)\s*ALL/a jenkins\tALL=(ALL) NOPASSWD: ALL' /etc/sudoers
 
 # install packages
-sudo yum -y install ansible python3 
+yum -y install ansible python3 
 
 cd ~/
 
 # git clone
-sudo git clone https://github.com/kubernetes-sigs/kubespray.git
+git clone https://github.com/kubernetes-sigs/kubespray.git
 
 
 # config requirements.txt
@@ -32,7 +32,7 @@ EOF
 # pip install error
 sudo -H pip3 install --upgrade --ignore-installed pip setuptools
 
-sudo pip3 install -r requirements.txt
+pip3 install -r requirements.txt
 
 # set  inventory.ini
 cp -rfp inventory/sample inventory/first_cluster
@@ -67,7 +67,7 @@ EOF
 
 #start ansible-playbook
 cd ~/kubespray
-sudo ansible-playbook  -i ./inventory/first_cluster/inventory.ini cluster.yml
+ansible-playbook  -i ./inventory/first_cluster/inventory.ini cluster.yml
 
 
 # config alias autocomplete
