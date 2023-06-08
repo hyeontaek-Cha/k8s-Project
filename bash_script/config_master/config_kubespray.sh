@@ -75,6 +75,5 @@ ansible-playbook  -i ./inventory/first_cluster/inventory.ini cluster.yml
 
 
 # config alias autocomplete
-echo 'source <(kubectl completion bash)' >>~/.bashrc
-echo 'alias k=kubectl' >>~/.bashrc 
-echo 'complete -F __start_kubectl k' >>~/.bashrc
+echo "source <(kubectl completion bash)" >> ~/.bashrc
+alias k=kubectl
