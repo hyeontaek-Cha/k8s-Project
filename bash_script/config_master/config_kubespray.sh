@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Add the jenkins line using sed
-sed -i '/^root\s*ALL=(ALL)\s*ALL/a jenkins\tALL=(ALL) NOPASSWD: ALL' /etc/sudoers
+# sed -i '/^root\s*ALL=(ALL)\s*ALL/a jenkins\tALL=(ALL) NOPASSWD: ALL' /etc/sudoers
 
 # install packages
 yum -y install ansible python3 
