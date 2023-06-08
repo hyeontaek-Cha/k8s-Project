@@ -30,7 +30,7 @@ ruamel.yaml.clib==0.2.7
 EOF
 
 # pip install error
-sudo -H pip3 install --upgrade --ignore-installed pip setuptools
+pip3 install --upgrade --ignore-installed pip setuptools
 
 pip3 install -r requirements.txt
 
