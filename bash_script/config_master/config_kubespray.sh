@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 # install packages
-yum -y install ansible python3 
+sudo yum -y install ansible python3 
 
 cd ~/
 
 # git clone
-git clone https://github.com/kubernetes-sigs/kubespray.git
+sudo git clone https://github.com/kubernetes-sigs/kubespray.git
 
 
 # config requirements.txt
@@ -29,7 +29,7 @@ EOF
 # pip install error
 sudo -H pip3 install --upgrade --ignore-installed pip setuptools
 
-pip3 install -r requirements.txt
+sudo pip3 install -r requirements.txt
 
 # set  inventory.ini
 cp -rfp inventory/sample inventory/first_cluster
@@ -64,7 +64,7 @@ EOF
 
 #start ansible-playbook
 cd ~/kubespray
-ansible-playbook  -i ./inventory/first_cluster/inventory.ini cluster.yml
+sudo ansible-playbook  -i ./inventory/first_cluster/inventory.ini cluster.yml
 
 
 # config alias autocomplete
