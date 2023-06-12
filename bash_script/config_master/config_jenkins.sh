@@ -1,8 +1,8 @@
 #! /bin/bash
 # -*- coding: utf-8 -*-
 
-yum -y install epel-release 
-yum -y update 
+#yum -y install epel-release 
+#yum -y update 
 
 # install jenkins
 wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
@@ -17,6 +17,8 @@ cat << EOF > /etc/systemd/system/jenkins.service.d/override.conf
 Environment="JENKINS_PORT=8880"
 EOF
 
+
+: << 'END'
 JENKINS_CONFIG_FILE="/etc/sysconfig/jenkins"
 NEW_JENKINS_PORT="8880"
 
@@ -27,7 +29,7 @@ cp /usr/lib/systemd/system/jenkins.service /usr/lib/systemd/system/jenkins.servi
 
 # Replace "JENKINS_PORT=" with "JENKINS_PORT=8880"
  sed -i 's/JENKINS_PORT=/JENKINS_PORT=8880/' /usr/lib/systemd/system/jenkins.service
-
+END
 
 /usr/bin/expect <<EOF
   set prompt "#"
@@ -53,6 +55,8 @@ systemctl daemon-reload
 
 systemctl enable jenkins && systemctl start jenkins
 
+
+: << 'END'
 # install gradle
 wget https://services.gradle.org/distributions/gradle-8.1.1-bin.zip
 
@@ -61,5 +65,6 @@ mkdir /opt/gradle
 unzip -d /opt/gradle gradle-8.1.1-bin.zip
 
 cd /opt/gradle/gradle-8.1.1
+END
 # check jenkins key
 cat /var/lib/jenkins/secrets/initialAdminPassword
