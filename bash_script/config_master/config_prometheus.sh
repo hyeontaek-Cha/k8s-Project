@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # config ~home dir
-$HOME=/var/lib/jenkins
+
 cd ~/
 
 # install metric server
@@ -39,7 +39,11 @@ git clone https://github.com/hali-linux/my-prometheus-grafana.git
 
 cd ~/my-prometheus-grafana
 
+file_path="my-prometheus-grafana/prometheus-cluster-role.yaml"
 
+# replace string
+search_string="v1beta1"
+replace_string="v1"
 # replace prometheus-cluster-role.yaml
 tmp_file=$(mktemp)
 
@@ -51,33 +55,23 @@ rm "$tmp_file"
 
 #install prometheus
 kubectl apply -f prometheus-cluster-role.yaml
-sleep 3s
 
 kubectl apply -f prometheus-config-map.yaml
-sleep 3s
 
 kubectl apply -f prometheus-deployment.yaml
-sleep 3s
 
 kubectl apply -f prometheus-node-exporter.yaml
-sleep 3s
 
 kubectl apply -f prometheus-svc.yaml
-sleep 3s
-
 
 #install kube-state
 kubectl apply -f kube-state-cluster-role.yaml
-sleep 3s
 
 kubectl apply -f kube-state-deployment.yaml
-sleep 3s
 
 kubectl apply -f kube-state-svcaccount.yaml
-sleep 3s
 
 kubectl apply -f kube-state-svc.yaml
-sleep 3s
 
 
 cd ~/my-prometheus-grafana/

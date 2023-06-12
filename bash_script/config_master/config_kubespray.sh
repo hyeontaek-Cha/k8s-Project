@@ -7,8 +7,8 @@
 # install packages
 yum -y install ansible python3 
 
-# config ~home dir
-$HOME=/var/lib/jenkins
+# config home dir
+export $HOME=/var/lib/jenkins
 
 cd ~
 
@@ -80,7 +80,9 @@ ansible all -i inventory/first_cluster/inventory.ini -m ping
 # start ansible-playbook
 ansible-playbook  -i ./inventory/first_cluster/inventory.ini cluster.yml
 
+# kubeadm init
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
-# config alias autocomplete
-echo "source <(kubectl completion bash)" >> ~/.bashrc
-alias k=kubectl
+export KUBECONFIG=/etc/kubernetes/admin.conf
